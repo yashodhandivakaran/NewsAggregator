@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "juspayNewsAggregator"
+    },
+    "juspayNewsAggregator": {
+      "applicationId": "x4xpXrKwaztA6OlPQAifObL3fcSY36bajQWulxWS"
+    }
+  }
+}

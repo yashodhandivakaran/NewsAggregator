@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#001D31</color>
+    <color name="colorPrimaryDark">#001828</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="news_background_color">#001D31</color>
+    <color name="news_card_color">#273238</color>
+    <color name="news_card_title">#FFFFFF</color>
+
+    <color name="news_title">#333333</color>
+    <color name="news_descpriction">#7b7b7b</color>
+    <color name="news_divider">#e0e0e0</color>
+
+</resources>
