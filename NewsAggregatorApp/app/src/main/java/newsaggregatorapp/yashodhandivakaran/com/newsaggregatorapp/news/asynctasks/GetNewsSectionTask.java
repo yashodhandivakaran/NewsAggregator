@@ -33,7 +33,7 @@ public class GetNewsSectionTask extends AsyncTask<List<News>,Integer,List<News>>
     protected List<News> doInBackground(List<News>... params) {
         newsList = params[0];
 
-        int count = 1;
+        int count = 0;
         for (News news: newsList){
             try {
                 if(isCancelled()){
