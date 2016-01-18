@@ -13,11 +13,15 @@ import java.util.List;
 import newsaggregatorapp.yashodhandivakaran.com.newsaggregatorapp.Constants.NewsConstant;
 import newsaggregatorapp.yashodhandivakaran.com.newsaggregatorapp.Constants.NewspaperConstant;
 import newsaggregatorapp.yashodhandivakaran.com.newsaggregatorapp.data.entities.News;
+import newsaggregatorapp.yashodhandivakaran.com.newsaggregatorapp.news.asynctasks.GetNewsSectionTask;
 
 /**
  * Created by webyog on 16/01/16.
  */
-public class ParseQueries {
+public class ParseQueries implements GetNewsSectionTask.GetNewsSectionListener {
+
+    private NewsListListener mNewsListListener;
+    private GetNewsSectionTask sectionTask;
 
     public interface NewspaperListener{
         public void listOfNewspapers(List<newsaggregatorapp.yashodhandivakaran.com.newsaggregatorapp.data.entities.Newspaper> newspaperList);
@@ -27,7 +31,7 @@ public class ParseQueries {
         public void listOfNewsArticles(List<News> newsList);
     }
 
-    public static void getNewsPapers(final NewspaperListener listener){
+    public void getNewsPapers(final NewspaperListener listener){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Newspaper");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> newspapers, ParseException e) {
@@ -40,6 +44,7 @@ public class ParseQueries {
                         newspaper.setName(obj.getString(NewspaperConstant.COL_NAME));
                         newspaper.setRssUrl(obj.getString(NewspaperConstant.COL_RSSURL));
                         newspaper.setId(obj.getString(NewspaperConstant.COL_NEWSPAPER_UID));
+                        newspaper.setColor(obj.getString(NewspaperConstant.COL_COLOR));
 
                         newspaperList.add(newspaper);
                     }
@@ -56,7 +61,10 @@ public class ParseQueries {
         });
     }
 
-    public static void getListOfNewsArticles(String newspaperUid,final NewsListListener listener){
+    public void getListOfNewsArticles(String newspaperUid,final NewsListListener listener){
+
+        mNewsListListener = listener;
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("News");
         query.whereEqualTo(NewsConstant.COL_NEWSPAPER_UID,newspaperUid);
         query.orderByDescending("updatedAt");
@@ -78,15 +86,24 @@ public class ParseQueries {
                         newsArticleList.add(newsArticle);
                     }
 
-                    if (listener != null) {
-                        listener.listOfNewsArticles(newsArticleList);
-                    }
-
+                    sectionTask = new GetNewsSectionTask(ParseQueries.this);
+                    sectionTask.execute(newsArticleList);
 
                 } else {
                     Log.d("Exception", "Error: " + e.getMessage());
                 }
             }
         });
+    }
+
+    @Override
+    public void passNewsWithSection(List<News> newsList) {
+        mNewsListListener.listOfNewsArticles(newsList);
+    }
+
+    public void cancelSectionFetchingTask(){
+        if(sectionTask!=null){
+            sectionTask.cancel(true);
+        }
     }
 }

@@ -32,6 +32,7 @@ public class NewsListFragment extends Fragment implements ParseQueries.NewsListL
     private RecyclerView mNewsList;
     private NewsListAdapter mAdapter;
     private List<News> newsArticleList;
+    private ParseQueries parseQueries;
 
     // TODO: Rename and change types and number of parameters
     public static NewsListFragment newInstance(String param1, String param2) {
@@ -76,7 +77,8 @@ public class NewsListFragment extends Fragment implements ParseQueries.NewsListL
         mAdapter = new NewsListAdapter(newsArticleList,getActivity());
         mNewsList.setAdapter(mAdapter);
 
-        ParseQueries.getListOfNewsArticles(mNewspaper.getId(),this);
+        parseQueries = new ParseQueries();
+        parseQueries.getListOfNewsArticles(mNewspaper.getId(), this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -101,6 +103,8 @@ public class NewsListFragment extends Fragment implements ParseQueries.NewsListL
     public void onDetach() {
         super.onDetach();
         mListener = null;
+
+
     }
 
     public interface OnFragmentInteractionListener {
@@ -113,5 +117,11 @@ public class NewsListFragment extends Fragment implements ParseQueries.NewsListL
         newsArticleList.clear();
         newsArticleList.addAll(newsList);
         mNewsList.getAdapter().notifyDataSetChanged();
+    }
+
+    public void stopSectionFetchingTask(){
+        if(parseQueries != null){
+            parseQueries.cancelSectionFetchingTask();
+        }
     }
 }

@@ -65,7 +65,13 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         News news = newsList.get(position);
-        holder.title.setText(news.getTitle().trim());
+
+        String title = news.getTitle().trim();
+
+        if(news.getNewsCategory()!= null && !news.getNewsCategory().isEmpty()){
+            title = news.getNewsCategory()+": "+title;
+        }
+        holder.title.setText(title);
         String des = news.getDescription().split("<")[0];
         if(des == null || des.isEmpty()){
             holder.description.setVisibility(View.GONE);

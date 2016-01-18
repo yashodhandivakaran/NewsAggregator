@@ -53,7 +53,7 @@ public class NewspapersFragment extends Fragment implements ParseQueries.Newspap
         mNewsPaperGrid.setLayoutManager(gridLayoutManager);
 
         mNewspaperList = new ArrayList<>();
-        ParseQueries.getNewsPapers(this);
+        new ParseQueries().getNewsPapers(this);
         NewspaperListAdapter adapter = new NewspaperListAdapter(mNewspaperList,this);
         mNewsPaperGrid.setAdapter(adapter);
 

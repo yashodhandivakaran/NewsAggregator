@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements NewspapersFragmen
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-
     return true;
     }
 
@@ -77,5 +76,12 @@ public class MainActivity extends AppCompatActivity implements NewspapersFragmen
                 .findFragmentByTag(NewsListFragment.TAG)).getNewspaperUid());
         startSearch(null, false, appData, false);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        ((NewsListFragment) getSupportFragmentManager()
+                .findFragmentByTag(NewsListFragment.TAG)).stopSectionFetchingTask();
+        super.onBackPressed();
     }
 }

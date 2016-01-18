@@ -13,6 +13,15 @@ public class News implements Parcelable {
     private String description;
     private String link;
     private String newspaperUid;
+    private String newsCategory;
+
+    public String getNewsCategory() {
+        return newsCategory;
+    }
+
+    public void setNewsCategory(String newsCategory) {
+        this.newsCategory = newsCategory;
+    }
 
     public String getObjectId() {
         return objectId;

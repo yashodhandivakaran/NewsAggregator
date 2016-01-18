@@ -1,5 +1,6 @@
 package newsaggregatorapp.yashodhandivakaran.com.newsaggregatorapp.newspaper.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class NewspaperListAdapter extends RecyclerView.Adapter<NewspaperListAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView name;
+        public View container;
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -49,6 +51,7 @@ public class NewspaperListAdapter extends RecyclerView.Adapter<NewspaperListAdap
                 .inflate(R.layout.newspaper_item, parent, false);
         ViewHolder vh = new ViewHolder(v);
         vh.name = (TextView)v.findViewById(R.id.name);
+        vh.container = v.findViewById(R.id.container);
 
         return vh;
     }
@@ -58,6 +61,7 @@ public class NewspaperListAdapter extends RecyclerView.Adapter<NewspaperListAdap
 
         Newspaper newspaper = newspapers.get(position);
         holder.name.setText(newspaper.getName());
+        holder.container.setBackgroundColor(Color.parseColor(newspaper.getColor()));
     }
 
     @Override

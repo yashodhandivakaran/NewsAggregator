@@ -7,4 +7,5 @@ public class NewspaperConstant {
     public static final String COL_NAME = "name";
     public static final String COL_RSSURL =  "rss_url";
     public static final String COL_NEWSPAPER_UID = "newspaper_uid";
+    public static final String COL_COLOR = "color";
 }
