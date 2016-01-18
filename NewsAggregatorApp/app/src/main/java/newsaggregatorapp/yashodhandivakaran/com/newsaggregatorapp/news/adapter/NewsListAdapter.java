@@ -3,6 +3,7 @@ package newsaggregatorapp.yashodhandivakaran.com.newsaggregatorapp.news.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,9 +65,14 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         News news = newsList.get(position);
-        holder.title.setText(news.getTitle());
-        holder.description.setText(news.getDescription());
-
+        holder.title.setText(news.getTitle().trim());
+        String des = news.getDescription().split("<")[0];
+        if(des == null || des.isEmpty()){
+            holder.description.setVisibility(View.GONE);
+        }else {
+            holder.description.setVisibility(View.VISIBLE);
+            holder.description.setText(Html.fromHtml(des));
+        }
     }
 
     @Override

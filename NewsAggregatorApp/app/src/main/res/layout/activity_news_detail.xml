@@ -17,15 +17,27 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
-        <WebView
-            android:id="@+id/news_webview"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </WebView>
-    </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+            <WebView
+                android:id="@+id/news_webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></WebView>
+
+            <android.support.v4.widget.ContentLoadingProgressBar
+                android:id="@+id/loading_webpage"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+
+        </FrameLayout>
+
+    </LinearLayout></android.support.design.widget.CoordinatorLayout>
