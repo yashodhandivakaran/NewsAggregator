@@ -80,8 +80,11 @@ public class MainActivity extends AppCompatActivity implements NewspapersFragmen
 
     @Override
     public void onBackPressed() {
-        ((NewsListFragment) getSupportFragmentManager()
-                .findFragmentByTag(NewsListFragment.TAG)).stopSectionFetchingTask();
+        if (((NewsListFragment) getSupportFragmentManager()
+                .findFragmentByTag(NewsListFragment.TAG)) != null) {
+            ((NewsListFragment) getSupportFragmentManager()
+                    .findFragmentByTag(NewsListFragment.TAG)).stopSectionFetchingTask();
+        }
         super.onBackPressed();
     }
 }

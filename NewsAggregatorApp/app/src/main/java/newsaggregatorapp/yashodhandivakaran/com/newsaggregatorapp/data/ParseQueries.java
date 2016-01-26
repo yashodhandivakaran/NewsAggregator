@@ -106,4 +106,39 @@ public class ParseQueries implements GetNewsSectionTask.GetNewsSectionListener {
             sectionTask.cancel(true);
         }
     }
+
+    public void getTopTwoNewsArticles(NewsListListener newsListListener){
+
+        mNewsListListener = newsListListener;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("News");
+        query.setLimit(2);
+        query.orderByDescending("updatedAt");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> news, ParseException e) {
+                if (e == null) {
+
+                    List<News> newsArticleList = new ArrayList<News>();
+                    for (ParseObject obj : news) {
+
+                        News newsArticle = new News();
+                        newsArticle.setObjectId(obj.getObjectId());
+                        newsArticle.setTitle(obj.getString(NewsConstant.COL_TITLE));
+                        newsArticle.setLink(obj.getString(NewsConstant.COL_LINK));
+                        newsArticle.setDescription(obj.getString(NewsConstant.COL_DESCRIPTION));
+                        newsArticle.setNewspaperUid(NewsConstant.COL_NEWSPAPER_UID);
+
+
+                        newsArticleList.add(newsArticle);
+                    }
+
+                    sectionTask = new GetNewsSectionTask(ParseQueries.this);
+                    sectionTask.execute(newsArticleList);
+
+                } else {
+                    Log.d("Exception", "Error: " + e.getMessage());
+                }
+            }
+        });
+    }
 }
