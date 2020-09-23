@@ -5,6 +5,11 @@ Basic News aggregator android app which will list latest news everyday from top 
 In app parsing of the news article page is done to get the category of the news and show it while listing them.
 News widget provide user with two latest news right on the home screen everyday.
 
+## Screenshots
+![Dashboard Image](https://github.com/yashodhandivakaran/NewsAggregator/blob/master/dashboard.png)
 
+![Widget Image](https://github.com/yashodhandivakaran/NewsAggregator/blob/master/widget.png)
 
+![News-list Image](https://github.com/yashodhandivakaran/NewsAggregator/blob/master/news_list.png)
 
+![News-preview](https://github.com/yashodhandivakaran/NewsAggregator/blob/master/news_preview.png)
